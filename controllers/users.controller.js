@@ -5,7 +5,10 @@ const User = require('../models/user');
 module.exports = function () {
 	let service = {
 		createUser: createUser,
-		getAllUsers: getAllUsers
+		getAllUsers: getAllUsers,
+		getUserById: getUserById,
+		updateUser: updateUser,
+		deleteUser: deleteUser
 	};
 
 	return service;
@@ -28,6 +31,32 @@ module.exports = function () {
 				res.send(err);
 			}
 			res.json(users);
+		});
+	}
+
+	function getUserById(req, res) {
+		User.findById(req.params.user_id, (err, user) => {
+			if (err) {
+				res.send(err);
+			}
+			res.json(user);
+		});
+	}
+
+	function updateUser(req, res) {
+		User.findById(req.params.user_id, (err, user) => {
+			if (err) res.send(err);
+
+			Object.assign(user, req.body).save((err, user) => {
+				if (err) res.send(err);
+				res.json({ message: 'User Updated', user });
+			});
+		});
+	}
+
+	function deleteUser(req, res) {
+		User.remove({ _id: req.params.user_id }, (err, result) => {
+			res.json({ message: 'User successfully deleted', result });
 		});
 	}
 };

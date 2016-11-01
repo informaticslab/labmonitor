@@ -27,7 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-var port = process.env.PORT || 3000;
+let port = process.env.PORT || 3000;
 
 app.use('/api', require('./routes'));
 app.use('/', (req, res, next) => {
