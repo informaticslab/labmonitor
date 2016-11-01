@@ -20,8 +20,9 @@ module.exports = function () {
 		user.save((err) => {
 			if (err) {
 				res.send(err);
+			} else {
+				res.json({ message: 'Success', user });
 			}
-			res.json({ message: 'New user successfully created!' });
 		});
 	}
 
@@ -29,8 +30,10 @@ module.exports = function () {
 		User.find((err, users) => {
 			if (err) {
 				res.send(err);
+			} else {
+				res.json(users);
 			}
-			res.json(users);
+
 		});
 	}
 
@@ -38,25 +41,37 @@ module.exports = function () {
 		User.findById(req.params.user_id, (err, user) => {
 			if (err) {
 				res.send(err);
+			} else {
+				res.json(user);
 			}
-			res.json(user);
+
 		});
 	}
 
 	function updateUser(req, res) {
 		User.findById(req.params.user_id, (err, user) => {
-			if (err) res.send(err);
+			if (err) {
+				res.send(err);
+			} else {
+				Object.assign(user, req.body).save((err, user) => {
+					if (err) {
+						res.send(err);
+					} else {
+						res.json({ message: 'User updated!', user });
+					}
+				});
+			}
 
-			Object.assign(user, req.body).save((err, user) => {
-				if (err) res.send(err);
-				res.json({ message: 'User Updated', user });
-			});
 		});
 	}
 
 	function deleteUser(req, res) {
 		User.remove({ _id: req.params.user_id }, (err, result) => {
-			res.json({ message: 'User successfully deleted', result });
+			if (err) {
+				res.send(err);
+			} else {
+				res.json({ message: 'User successfully deleted', result });
+			}
 		});
 	}
 };

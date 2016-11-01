@@ -4,7 +4,7 @@
   "description": "Node app to monitor IIU's web offerings",
   "main": "app.js",
   "scripts": {
-    "start": "NODE_ENV=dev && nodemon app.js",
+    "start": "NODE_ENV=dev && nodemon server.js",
     "test": "mocha --timeout 10000"
   },
   "author": "Kiet Ta",

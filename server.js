@@ -25,6 +25,8 @@ if (config.util.getEnv('NODE_ENV') !== 'test') {
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.text());
+app.use(bodyParser.json({ type: 'application/json' }));
 
 
 let port = process.env.PORT || 3000;
@@ -37,3 +39,5 @@ app.use('/', (req, res, next) => {
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
+
+module.exports = app;
