@@ -1,7 +1,9 @@
-var User = require('../models/user');
+'use strict';
+
+const User = require('../models/user');
 
 module.exports = function () {
-	var service = {
+	let service = {
 		createUser: createUser,
 		getAllUsers: getAllUsers
 	};
@@ -12,7 +14,7 @@ module.exports = function () {
 
 	function createUser(req, res) {
 		var user = new User(req.body);
-		user.save(function (err) {
+		user.save((err) => {
 			if (err) {
 				res.send(err);
 			}
@@ -21,7 +23,7 @@ module.exports = function () {
 	}
 
 	function getAllUsers(req, res) {
-		User.find(function (err, users) {
+		User.find((err, users) => {
 			if (err) {
 				res.send(err);
 			}
