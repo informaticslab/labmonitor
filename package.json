@@ -2,14 +2,16 @@
   "name": "labmonitor",
   "version": "0.0.1",
   "description": "Node app to monitor IIU's web offerings",
-  "main": "server.js",
+  "main": "app.js",
   "scripts": {
-    "test": "npm test"
+    "start": "NODE_ENV=dev && nodemon app.js",
+    "test": "mocha --timeout 10000"
   },
   "author": "Kiet Ta",
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.15.2",
+    "config": "^1.21.0",
     "express": "^4.14.0",
     "moment": "^2.15.2",
     "mongoose": "^4.6.5",

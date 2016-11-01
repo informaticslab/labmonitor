@@ -1,14 +1,31 @@
 'use strict';
 
-const express = require('express');
-const app = express();
-const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
+let express = require('express');
+let app = express();
+let bodyParser = require('body-parser');
+let mongoose = require('mongoose');
+let morgan = require('morgan');
+let config = require('config');
 
-mongoose.connect('mongodb://localhost/labmonitor');
+//dboptions
+let options = {
+	server: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } },
+	replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
+};
 
-app.use(bodyParser.urlencoded({ extended: true }));
+mongoose.connect(config.DBHost, options);
+let db = mongoose.connection;
+db.on('error', console.error.bind(console, 'conneciton error: '));
+
+//don't show the log when it is test
+if (config.util.getEnv('NODE_ENV') !== 'test') {
+	//use morgan to log at command line
+	app.use(morgan('combined')); //'combined' outputs the Apache style LOGs
+}
+
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 var port = process.env.PORT || 3000;
 
