@@ -16,7 +16,7 @@ chai.use(chaiHttp);
 // Parent block
 describe('Users', () => {
 	beforeEach((done) => {
-		User.remove({}, (err) => {
+		User.remove({}, () => {
 			done();
 		});
 	});

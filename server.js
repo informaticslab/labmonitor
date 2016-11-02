@@ -13,6 +13,7 @@ let options = {
 	replset: { socketOptions: { keepAlive: 1, connectTimeoutMS: 30000 } }
 };
 
+mongoose.Promise = global.Promise;
 mongoose.connect(config.DBHost, options);
 let db = mongoose.connection;
 db.on('error', console.error.bind(console, 'conneciton error: '));

@@ -46,3 +46,6 @@ doc
 
 #text editor
 .vscode/
+
+# Mocha reporter
+mochawesome-reports/
